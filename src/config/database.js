@@ -1,12 +1,12 @@
-require('dotenv').config();
+// require('dotenv').config();
 const mongoose = require('mongoose');
 
-let connection
+let connection;
 
 const connect = async () => {
   if(connection) return
 
-  const MONGO_URI = process.env.MONGO_URL_DB
+  const MONGO_URI = 'mongodb+srv://jesus:1234@dbhotel.c1uavy1.mongodb.net/hotel'
 
   connection = mongoose.connection
 

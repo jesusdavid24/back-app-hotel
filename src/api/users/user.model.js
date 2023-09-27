@@ -30,6 +30,10 @@ const userSchema = new Schema(
       minlength: [10, 'Phone must be at least 10 characters long'],
       maxlength: [20, 'Phone must be at most 20 characters long'],
     },
+    bookings: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'booking' }],
+      required: false,
+    }
   }, 
   {
     timestamps: true,
