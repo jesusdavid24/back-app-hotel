@@ -1,11 +1,11 @@
 require('dotenv').config()
 const express = require('express');
 const configExpress = require('./config/express');
-//const connect = require('./config/database');
+const connect = require('./config/database');
 //const routes = require('./routes');
 
 const app = express();
-// connect()
+connect()
 
 
 //setup express
