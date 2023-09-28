@@ -18,7 +18,27 @@ const listHotels = async () => {
   }
 };
 
+const updateHotel = async (id, data) => {
+  try {
+    const newHotel = await Hotel.findByIdAndUpdate(id, data, { new: true });
+    return newHotel;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const deleteHotel = async (id) => {
+  try {
+    const hotel = await Hotel.findByIdAndDelete(id);
+    return hotel;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 module.exports = {
   listHotels,
   createHotel,
-}
+  updateHotel,
+  deleteHotel,
+};

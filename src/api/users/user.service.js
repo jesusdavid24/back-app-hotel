@@ -18,7 +18,27 @@ const listUsers = async () => {
   }
 };
 
+const updateUser = async (id, data) => {
+  try {
+    const newUser = await User.findByIdAndUpdate(id, data, { new: true});
+    return newUser;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const deleteUser = async (id) => {
+  try {
+    const user = await User.findByIdAndDelete(id);
+    return user;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 module.exports = {
   listUsers,
   createUser,
-}
+  updateUser,
+  deleteUser,
+};

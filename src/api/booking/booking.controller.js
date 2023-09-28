@@ -5,6 +5,8 @@ const { createUser } = require('../users/user.service');
 const { 
   listBooking, 
   createBooking,
+  updateBooking,
+  deleteBooking
 } = require('./booking.service');
 
 const bookingCreateHandler = async (req, res) => {
@@ -16,10 +18,10 @@ const bookingCreateHandler = async (req, res) => {
       name,
       email,
       phone,
+      hotels,
       dateCheckIn,
       dateCheckOut,
       paymentStatus,
-      hotels
     }  = req.body;
 
     const newUser = {
@@ -42,9 +44,7 @@ const bookingCreateHandler = async (req, res) => {
       paymentStatus,
       user: user._id,
       hotels: hotel._id
-    }
-
-    console.log(newBooking);
+    };
 
     const booking = await createBooking(newBooking);
     user.bookings.unshift(booking);
@@ -53,10 +53,10 @@ const bookingCreateHandler = async (req, res) => {
     hotel.bookings.unshift(booking);
     await hotel.save({ validateBeforeSave: false });
 
-    res.status(200).json({ message: 'Booking created', data: booking })
+    res.status(200).json({ message: 'Booking created', data: booking });
 
   } catch (error) {
-    res.status(400).json({ message: 'Error creating booking', error: error.message })
+    res.status(400).json({ message: 'Error creating booking', error: error.message });
   }
 };
 
@@ -68,9 +68,35 @@ const listBookingHandler = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: 'Error listing bookings', error: error.message });
   }
-}
+};
+
+const updateBookingHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+
+    const newBooking = await updateBooking(id, data);
+
+    res.status(200).json({ message: 'Booking update', data: newBooking });
+  } catch (error) {
+    res.status(400).json({ message: 'Booking could not updated', error: error.message });
+  }
+};
+
+const deleteBookingHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const booking = await deleteBooking(id);
+
+    res.status(200).json({ message: 'Booking delete', data: booking });
+  } catch (error) {
+    res.status(400).json({ message: 'Booking could not deleted', error: error.message });
+  }
+};
 
 module.exports = {
+  listBookingHandler,
   bookingCreateHandler,
-  listBookingHandler
-}
+  updateBookingHandler,
+  deleteBookingHandler,
+};
