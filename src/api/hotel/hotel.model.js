@@ -6,18 +6,18 @@ const hotelSchema = new Schema(
       type: String,
       required: [true, 'Name is required'],
       minlength: [2, 'Name must be at least 2 characters long'],
-      maxlength: [15, 'Name must be at most 15 characters long'],
+      maxlength: [20, 'Name must be at most 20 characters long'],
     },
     address: {
       type: String,
       required: [true, 'address es required'],
-      minlength: [7, 'Name must be at least 7 characters long'],
-      maxlength: [15, 'Name must be at most 15 characters long'],
+      minlength: [2, 'address must be at least 2 characters long'],
+      maxlength: [30, 'address must be at most 30 characters long'],
     },
     description: {
       type: String,
-      minlength: [10, 'Name must be at least 10 characters long'],
-      maxlength: [20, 'Name must be at most 20 characters long'],
+      minlength: [2, 'description must be at least 2 characters long'],
+      maxlength: [100, 'description must be at most 50 characters long'],
     },
     numRooms: {
       type: Number,
@@ -28,6 +28,13 @@ const hotelSchema = new Schema(
       type: Number,
       required: [true, 'You must enter a fee'],
       min: [1, 'you must enter a value greater than zero']
+    },
+    image: {
+      type: String
+    },
+    bookings: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'booking' }],
+      required: false,
     }
   },
   {

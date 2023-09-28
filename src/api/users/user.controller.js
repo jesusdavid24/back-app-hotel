@@ -1,46 +1,13 @@
-const { createBooking } = require('../booking/booking.service')
-
 const { 
+  listUsers,
   createUser,
-  listUsers
 } = require('./user.service');
 
 const userCreateHandler = async (req, res) => {
   try {
+    const data = req.body;
 
-    const { 
-      name,
-      email,
-      phone,
-      dateCheckIn,
-      dateCheckOut,
-      paymentStatus
-    }  = req.body
-
-    const newUser = {
-      name,
-      email,
-      phone,
-    }
-
-    console.log(newUser);
-
-    const user = await createUser(newUser);
-
-    const newBooking = {
-      dateCheckIn,
-      dateCheckOut,
-      paymentStatus,
-      user: user._id,
-    }
-
-    console.log(newBooking);
-
-    const booking = await createBooking(newBooking)
-    user.bookings.unshift(booking)
-    await user.save({ validateBeforeSave: false })
-
-    // email send
+    const user = await createUser(data);
 
     res.status(201).json({ message: 'User created', data: user });
   } catch (error) {
@@ -50,7 +17,6 @@ const userCreateHandler = async (req, res) => {
 };
 
 const listUsersHandler = async (req, res) => {
-
   try {
     const users = await listUsers()
 
@@ -61,6 +27,6 @@ const listUsersHandler = async (req, res) => {
 };
 
 module.exports = {
+  listUsersHandler,
   userCreateHandler,
-  listUsersHandler
-}
+};

@@ -18,11 +18,11 @@ const bookingSchema = new Schema(
       ref: 'user',
       required: true
     },
-    // hotel: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'hotel',
-    //   required: true
-    // }
+    hotels: {
+      type: Schema.Types.ObjectId,
+      ref: 'hotel',
+      required: true
+    }
   },
   {
     timestamps: true,

@@ -1,7 +1,8 @@
 const router = require('express').Router();
+
 const { 
+  listUsersHandler, 
   userCreateHandler, 
-  listUsersHandler 
 } = require('./user.controller');
 
 router.route('/').get(listUsersHandler);

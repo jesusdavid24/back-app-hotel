@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {
+  listBookingHandler,
   bookingCreateHandler,
-  listBookingHandler
 } = require('./booking.controller');
 
 router.route('/').get(listBookingHandler);
