@@ -24,20 +24,23 @@ const userSchema = new Schema(
         message: 'Email already exists'
       }]
     },
+    password: {
+      type: String,
+    },
     phone: {
       type: String,
       required: [true, 'phone is required'],
       minlength: [10, 'Phone must be at least 10 characters long'],
       maxlength: [20, 'Phone must be at most 20 characters long'],
     },
+    role: {
+      type: String,
+      enum: ['CLIENT', 'ADMIN'], 
+      default: 'client',
+    },
     bookings: {
       type: [{ type: Schema.Types.ObjectId, ref: 'booking' }],
       required: false,
-    },
-    roles: {
-      type: Schema.Types.ObjectId,
-      ref: 'Role',
-      required: true,
     },
   }, 
   {

@@ -1,7 +1,12 @@
 const User = require('./user.model');
+const { hashPassword } = require('../../auth/utils/bcrypt');
 
 const createUser = async (data) => {
   try {
+    const hashedPassword = await hashPassword(data.password);
+
+    data.password = hashedPassword;
+
     const user = await User.create(data);
     return user;
   } catch (error) {
@@ -20,7 +25,7 @@ const listUsers = async () => {
 
 const listUserByEmail = async (email) => {
   try {
-    const userEmail = await User.findOne(email);
+    const userEmail = await User.findOne({ email: email });
     return userEmail;
   } catch (error) {
     throw new Error(error);

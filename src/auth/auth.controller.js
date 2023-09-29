@@ -1,5 +1,5 @@
-const { listUserByEmail } = require('../api/users/user.service');
 const { verifyToken } = require('./auth.service');
+const { listUserByEmail } = require('../api/users/user.service');
 
 const isAuthenticated = async (req, res, next) => {
   
@@ -22,23 +22,22 @@ const isAuthenticated = async (req, res, next) => {
   req.users = user;
 
   return next();
-}
+};
 
-const hasRole = async (rolesAllowed) => {
-  return async (req, res, next) => {
-    const { roleId } = req.users;
-    const role = await getRoleById(roleId);
-    const hasPermission = rolesAllowed.includes(role?.name);
+const hasRole = (rolesAllowed) => {
+  return (req, res, next) => {
+    const { role } = req.users;
 
-    if (!hasPermission) {
+    if (!rolesAllowed.includes(role)) {
       return res.status(403).json({ message: 'Forbidden' });
     }
 
     return next();
   };
-}
+};
+
 
 module.exports = {
   hasRole,
   isAuthenticated,
-}
+};

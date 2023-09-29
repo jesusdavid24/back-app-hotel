@@ -17,6 +17,6 @@ const signToken = (payload) => {
 };
 
 module.exports = {
-  verifyToken,
   signToken,
+  verifyToken,
 };
