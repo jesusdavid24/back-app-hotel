@@ -8,6 +8,12 @@ const hotelSchema = new Schema(
       minlength: [2, 'Name must be at least 2 characters long'],
       maxlength: [20, 'Name must be at most 20 characters long'],
     },
+    city: {
+      type: String,
+      required: [true, 'Name is required'],
+      minlength: [2, 'Name must be at least 2 characters long'],
+      maxlength: [20, 'Name must be at most 20 characters long'],
+    },
     address: {
       type: String,
       required: [true, 'address es required'],

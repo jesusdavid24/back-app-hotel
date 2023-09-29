@@ -90,6 +90,13 @@ const deleteBookingHandler = async (req, res) => {
     const { id } = req.params;
     const booking = await deleteBooking(id);
 
+    const hotel = await Hotel.findOne({ bookings: booking._id });
+    
+    if (hotel) {
+      hotel.bookings = hotel.bookings.filter((bookingId) => bookingId.toString() !== id);
+      await hotel.save({ validateBeforeSave: false });
+    }
+
     res.status(200).json({ message: 'Booking delete', data: booking });
   } catch (error) {
     res.status(400).json({ message: 'Booking could not deleted', error: error.message });

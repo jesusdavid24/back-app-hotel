@@ -1,4 +1,8 @@
 const router = require('express').Router();
+const { 
+  isAuthenticated, 
+  hasRole 
+} = require('../../auth/auth.controller');
 
 const { 
   listUsersHandler, 
@@ -7,9 +11,9 @@ const {
   deleteUserHandler 
 } = require('./user.controller');
 
-router.route('/').get(listUsersHandler);
+router.route('/').get(isAuthenticated, hasRole(['ADMIN']), listUsersHandler);
 router.route('/').post(userCreateHandler);
-router.route('/:id').put(updateUserHandler);
-router.route('/:id').delete(deleteUserHandler);
+router.route('/:id').put(isAuthenticated, hasRole(['ADMIN']), updateUserHandler);
+router.route('/:id').delete(isAuthenticated, hasRole(['ADMIN']), deleteUserHandler);
 
 module.exports = router;
