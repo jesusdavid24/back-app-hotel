@@ -33,15 +33,19 @@ const userSchema = new Schema(
     bookings: {
       type: [{ type: Schema.Types.ObjectId, ref: 'booking' }],
       required: false,
-    }
+    },
+    roles: {
+      type: Schema.Types.ObjectId,
+      ref: 'Role',
+      required: true,
+    },
   }, 
   {
     timestamps: true,
     versionKey: false,
   }
-) 
+); 
 
 const User = model('user', userSchema)
-
 
 module.exports = User

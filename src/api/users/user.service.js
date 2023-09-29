@@ -18,6 +18,15 @@ const listUsers = async () => {
   }
 };
 
+const listUserByEmail = async (email) => {
+  try {
+    const userEmail = await User.findOne(email);
+    return userEmail;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const updateUser = async (id, data) => {
   try {
     const newUser = await User.findByIdAndUpdate(id, data, { new: true});
@@ -41,4 +50,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  listUserByEmail,
 };

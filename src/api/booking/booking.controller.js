@@ -1,3 +1,4 @@
+const Role = require('../roles/role.model');
 const User = require('../users/user.model');
 const Hotel = require('../hotel/hotel.model');
 const { createUser } = require('../users/user.service');
@@ -18,16 +19,20 @@ const bookingCreateHandler = async (req, res) => {
       name,
       email,
       phone,
+      roles,
       hotels,
       dateCheckIn,
       dateCheckOut,
       paymentStatus,
     }  = req.body;
 
+    const role = await Role.findById(roles);
+
     const newUser = {
       name,
       email,
       phone,
+      roles: role._id
     };
 
     user = await User.findOne({ email: email });
