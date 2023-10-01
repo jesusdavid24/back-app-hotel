@@ -1,6 +1,8 @@
 const User = require('../users/user.model');
 const Hotel = require('../hotel/hotel.model');
 const { createUser } = require('../users/user.service');
+const { sendNodeMailer } = require('../../config/nodemailer');
+const { emailBooking } = require('../../utils/sendEmail');
 
 const { 
   listBooking, 
@@ -55,9 +57,12 @@ const bookingCreateHandler = async (req, res) => {
     hotel.bookings.unshift(booking);
     await hotel.save({ validateBeforeSave: false });
 
+    await sendNodeMailer(emailBooking(user));
+
     res.status(200).json({ message: 'Booking created', data: booking });
 
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: 'Error creating booking', error: error.message });
   }
 };

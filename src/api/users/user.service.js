@@ -3,9 +3,11 @@ const { hashPassword } = require('../../auth/utils/bcrypt');
 
 const createUser = async (data) => {
   try {
-    const hashedPassword = await hashPassword(data.password);
 
-    data.password = hashedPassword;
+    if(data.password){
+      const hashedPassword = await hashPassword(data.password);
+      data.password = hashedPassword;
+    };    
 
     const user = await User.create(data);
     return user;
