@@ -36,7 +36,6 @@ const hasRole = (rolesAllowed) => {
   };
 };
 
-
 module.exports = {
   hasRole,
   isAuthenticated,

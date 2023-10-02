@@ -34,10 +34,14 @@ const userSchema = new Schema(
       minlength: [10, 'Phone must be at least 10 characters long'],
       maxlength: [20, 'Phone must be at most 20 characters long'],
     },
+    userId: {
+      type: String,
+      required: false,
+    },
     role: {
       type: String,
       enum: ['CLIENT', 'ADMIN'], 
-      default: 'client',
+      default: 'CLIENT',
     },
     bookings: {
       type: [{ type: Schema.Types.ObjectId, ref: 'booking' }],

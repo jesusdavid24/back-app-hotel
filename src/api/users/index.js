@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { 
-  isAuthenticated, 
-  hasRole 
+  hasRole, 
+  isAuthenticated,
 } = require('../../auth/auth.controller');
 
 const { 

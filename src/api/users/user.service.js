@@ -3,14 +3,22 @@ const { hashPassword } = require('../../auth/utils/bcrypt');
 
 const createUser = async (data) => {
   try {
+    if (data.userId && data.role === 'ADMIN') {
+      if (data.role === 'ADMIN') {
+        const user = await User.create(data);
+        return user;
+      } else {
+        throw new Error('No tienes permisos para crear usuarios con rol ADMIN.');
+      }
+    } else {
+      if (data.password) {
+        const hashedPassword = await hashPassword(data.password);
+        data.password = hashedPassword;
+      }
 
-    if(data.password){
-      const hashedPassword = await hashPassword(data.password);
-      data.password = hashedPassword;
-    };    
-
-    const user = await User.create(data);
-    return user;
+      const user = await User.create(data);
+      return user;
+    }
   } catch (error) {
     throw new Error(error);
   }
